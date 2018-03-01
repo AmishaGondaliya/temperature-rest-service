@@ -41,26 +41,6 @@ public class TemperatureService {
 	@Autowired
 	private TemperatureRepository repository;
 	
-//	@RequestMapping(method = RequestMethod.GET,path="/temperature/{temperatureId}")
-//	public @ResponseBody TemperatureResponse getTemperature(@PathVariable("temperatureId") Long temperatureId) {
-//		log.info("TemperatureService : getTemperature [IN]");
-//		Temperature temp = repository.findOne(temperatureId);
-//		TemperatureResponse response = new TemperatureResponse();
-//		
-//		Temperature fTemp = new Temperature();
-//		fTemp.setId(temp.getId());
-//		fTemp.setCreate_date(temp.getCreate_date());
-//		System.out.println(temp.getCreate_date());
-//		fTemp.setUpdate_date(temp.getUpdate_date());
-//		fTemp.setTemperature(((Double.valueOf(temp.getTemperature()) * 1.8) + 32));
-//		
-//		response.getTemperatureList().add(fTemp);
-//		response.getTemperatureList().add(temp);
-//		log.info("Temp : " + temp);
-//		log.info("TemperatureService : getTemperature [OUT]");
-//		return response;
-//	}
-
 	
 	@RequestMapping(method = RequestMethod.GET,path="/temperature/{temperatureId}")
 	public @ResponseBody TemperatureResponse getTemperature(@PathVariable("temperatureId") Long temperatureId) {
