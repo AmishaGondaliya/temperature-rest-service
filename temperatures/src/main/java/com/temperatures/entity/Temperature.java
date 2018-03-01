@@ -1,5 +1,9 @@
 package com.temperatures.entity;
 
+import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,17 +15,22 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.temperatures.util.*;
 
 
 @Entity
 @Table(name = "temperature")
-//@NamedQueries(value = {
-//		@NamedQuery(name = "TemperatureRepository.findAll", query = "SELECT t FROM Temperature") , 
-//		@NamedQuery(name = "TemperatureRepository.findById", query = "SELECT t FROM Temperature t where t.id=:id")
-//		})
-public class Temperature {
+@NamedQueries({
+		@NamedQuery(name = "TemperatureRepository.findAll", query = "SELECT t FROM Temperature t") , 
+		@NamedQuery(name = "TemperatureRepository.findById", query = "SELECT t FROM Temperature t where t.id=:id")
+		})
+public class Temperature implements Serializable {
 
 	@Id
 	@Column(name = "ID")
@@ -32,14 +41,16 @@ public class Temperature {
 	private Double temperature;
 
 	@Column(nullable = false, updatable = false, name = "CREATE_DATE")
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.TIMESTAMP)
+	//@Type(type="timestamp")
 	@CreatedDate
-	private Date create_date;
+	private String create_date;
 
 	@Column(nullable = true, name = "UPDATE_DATE")
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.TIMESTAMP)
+	//@Type(type="timestamp")
 	@LastModifiedDate
-	private Date update_date;
+	private String update_date;
 
 	public Long getId() {
 		return id;
@@ -57,19 +68,19 @@ public class Temperature {
 		this.temperature = temperature;
 	}
 
-	public Date getCreate_date() {
+	public String getCreate_date() {
 		return create_date;
 	}
 
-	public void setCreate_date(Date create_date) {
+	public void setCreate_date(String create_date) {
 		this.create_date = create_date;
 	}
 
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
 
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
 	
@@ -77,7 +88,7 @@ public class Temperature {
 		
 	}
 
-	public Temperature(Long id, Double temperature, Date create_date, Date update_date) {
+	public Temperature(Long id, Double temperature, String create_date, String update_date) {
 		this.id = id;
 		this.temperature = temperature;
 		this.create_date = create_date;
